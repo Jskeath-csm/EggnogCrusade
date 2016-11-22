@@ -40,4 +40,9 @@ public class GameFrame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Eggnog getProjectile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
