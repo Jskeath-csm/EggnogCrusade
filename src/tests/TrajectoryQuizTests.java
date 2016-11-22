@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import game.GameFrame;
+import game.QuizDialog;
 
 public class TrajectoryQuizTests {
 
@@ -25,21 +26,24 @@ public class TrajectoryQuizTests {
 	public void testQuizReadIn() {
 		
 		Map<String, String> questions = gameFrame.getQuestions();
+		String firstQuestion = "Sample Question 1?";
+		String secondQuestion = "Sample Question 2?";
+		String thridQuestion = "Sample Question 3?";
 		
 		//Test to see that all of the questions were loaded in from the config
 		assertEquals(0, questions.size());
 		
 		//Test to see that answers are mapped to questions
-		assert(questions.containsKey("Sample Question 1?"));
-		assertEquals("Answer 1", questions.get("Sample Question 1?"));
+		assert(questions.containsKey(firstQuestion));
+		assertEquals("Answer 1", questions.get(firstQuestion));
 		
 		//Test to see that answers are mapped to questions
-		assert(questions.containsKey("Sample Question 2?"));
-		assertEquals("Answer 2", questions.get("Sample Question 2?"));
+		assert(questions.containsKey(secondQuestion));
+		assertEquals("Answer 2", questions.get(secondQuestion));
 		
 		//Test to see that answers are mapped to questions
-		assert(questions.containsKey("Sample Question 3?"));
-		assertEquals("Answer 3", questions.get("Sample Question 3?"));
+		assert(questions.containsKey(thridQuestion));
+		assertEquals("Answer 3", questions.get(thridQuestion));
 		
 		
 	}
@@ -50,8 +54,36 @@ public class TrajectoryQuizTests {
 		gameFrame.displayQuiz();
 		
 		//Make sure that the quiz display is not null
-		assertNotNull(gameFrame.getQuizDialog());
+		assertNotNull(gameFrame.getQuizJDialog());
 	}
-
-
+	
+	@Test
+	public void testGradingQuiz(){
+		
+		//Test the starting ammo		
+		assertEquals(0, gameFrame.getAmmoCount());
+		
+		QuizDialog quizDialog = gameFrame.getQuizJDialog();
+		//Grade fake quiz with 3 correct answers
+		quizDialog.gradeQuiz();
+		
+		//Test ammo count again
+		assertEquals(3, gameFrame.getAmmoCount());
+		
+	}
+	
+	@Test
+	public void testGradingQuiz(){
+		
+		//Test the starting ammo		
+		assertEquals(0, gameFrame.getAmmoCount());
+		
+		QuizDialog quizDialog = gameFrame.getQuizJDialog();
+		//Grade fake quiz with 3 correct answers
+		quizDialog.gradeQuiz();
+		
+		//Test ammo count again
+		assertEquals(3, gameFrame.getAmmoCount());
+		
+	}
 }
