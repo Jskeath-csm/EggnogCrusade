@@ -7,7 +7,7 @@ import org.junit.Test;
 public class ProjectileMotionTests {
 
 	@Test
-	public void test() {
+	public void testPositions() {
 		fail("Not yet implemented");
 	}
 
