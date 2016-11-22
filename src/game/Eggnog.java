@@ -9,6 +9,8 @@ public class Eggnog {
 	private int pixelX;
 	private int pixelY;
 	
+	private boolean isVisible;
+	
 	public void setDeltaT(double deltaT) {
 		// TODO Auto-generated method stub
 		
@@ -32,6 +34,11 @@ public class Eggnog {
 	public Point getPosition() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean getVisible() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

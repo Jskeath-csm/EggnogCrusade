@@ -3,6 +3,7 @@ package game;
 import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class GameFrame {
 	private static GameFrame gameInstance = new GameFrame();
@@ -13,6 +14,8 @@ public class GameFrame {
 	
 	private String quizFileName;
 	private ArrayList<String> imageFileNames = new ArrayList<String>();
+	
+	private QuizDialog quiz;
 	
 	private GameFrame() {
 		
@@ -42,6 +45,31 @@ public class GameFrame {
 	}
 
 	public Eggnog getProjectile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void loadQuiz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public Map<String, String> getQuestions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void displayQuiz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public QuizDialog getQuizJDialog() {
 		// TODO Auto-generated method stub
 		return null;
 	}

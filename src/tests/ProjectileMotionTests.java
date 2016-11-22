@@ -95,7 +95,7 @@ public class ProjectileMotionTests {
 		
 		//3 seconds of travel time, had to hit wall
 		for(int i=0;i<100;i++){
-			nog.update();
+			nog.updateMotion();
 		}
 		
 		assertFalse(nog.getVisible());
