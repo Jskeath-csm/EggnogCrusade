@@ -13,7 +13,7 @@ import game.GameFrame;
 
 public class TestGameInit {
 
-	GameFrame gf;
+	private static GameFrame gf;
 	
 	@BeforeClass
 	public void setup(){
@@ -29,6 +29,7 @@ public class TestGameInit {
 	public void drawTrajectoryTes() {
 		gf.calculateTrajectory(45.0);
 		ArrayList<Point> pts = gf.getTrajectory();
+		assertTrue(pts.size() > 0);
 	}
 	
 	@Test
