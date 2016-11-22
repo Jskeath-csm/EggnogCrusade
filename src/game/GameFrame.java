@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Point;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GameFrame {
@@ -22,5 +24,20 @@ public class GameFrame {
 	
 	public void setConfigFiles(String quizFileName, String[] imageFileNames) {
 
+	}
+
+	public void calculateTrajectory(double d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayList<Point> getTrajectory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void loadImages() throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		
 	}
 }
