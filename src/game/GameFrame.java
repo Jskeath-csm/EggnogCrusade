@@ -11,7 +11,7 @@ public class GameFrame {
 		
 	}
 	
-	public GameFrame getInstance() {
+	public static GameFrame getInstance() {
 		return gameInstance;
 	}
 }
