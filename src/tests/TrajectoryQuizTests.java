@@ -30,19 +30,28 @@ public class TrajectoryQuizTests {
 		assertEquals(0, questions.size());
 		
 		//Test to see that answers are mapped to questions
+		assert(questions.containsKey("Sample Question 1?"));
 		assertEquals("Answer 1", questions.get("Sample Question 1?"));
 		
 		//Test to see that answers are mapped to questions
+		assert(questions.containsKey("Sample Question 2?"));
 		assertEquals("Answer 2", questions.get("Sample Question 2?"));
 		
 		//Test to see that answers are mapped to questions
+		assert(questions.containsKey("Sample Question 3?"));
 		assertEquals("Answer 3", questions.get("Sample Question 3?"));
 		
 		
 	}
 	
-	
 	//display quiz questions
+	@Test
+	public void testQuizDisplay(){
+		gameFrame.displayQuiz();
+		
+		//Make sure that the quiz display is not null
+		assertNotNull(gameFrame.getQuizDialog());
+	}
 
 
 }
