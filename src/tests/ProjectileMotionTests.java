@@ -63,7 +63,7 @@ public class ProjectileMotionTests {
 		pos.setLocation(3.5,4); //predicted position
 		assertEquals(pos, nog.getPosition());
 	}
-	
+
 	@Test
 	public void testOutOfBounds(){
 		Eggnog nog = gf.getProjectile();
@@ -73,18 +73,18 @@ public class ProjectileMotionTests {
 		nog.setDeltaT(100.0); //large deltaT, definitely will go off screen after 1 update
 		nog.setAngle(45.0);
 		nog.reset();
-		
+
 		nog.updateMotion();
-		
+
 		assertFalse(nog.getVisible());
 	}
-	
+
 	@Test
 	public void testCollision(){
 		Eggnog nog = gf.getProjectile();
 		Bucket b = new Bucket();
 		b.setPosition(new Point(3,0));
-		
+
 		//multiple projectile position tests
 
 		nog.setDeltaT(0.030); //roughly 33FPS
@@ -92,14 +92,35 @@ public class ProjectileMotionTests {
 		nog.reset(); //resets position
 
 		assertEquals(gf.getScore(),0);
-		
+
 		//3 seconds of travel time, had to hit wall
 		for(int i=0;i<100;i++){
 			nog.updateMotion();
 		}
-		
+
 		assertFalse(nog.getVisible());
-		assertTrue(gf.getScore() > 0); //need to change to actual scor value once decided
+		assertEquals(gf.getScore(), 0); //need to change to actual score value once decided
+
+		/*
+		 * TEST 2
+		 */
+
+		//test if we hit a bucket
+		b.setPosition(new Point(3,0)); //needs to change so we know the projectile can hit it
+
+		nog.setDeltaT(0.030); //roughly 33FPS
+		nog.setAngle(45.0); //angle to hit bucket
+		nog.reset(); //resets position
+
+		assertEquals(gf.getScore(),0);
+
+		//3 seconds of travel time to make sure we hit the bucket
+		for(int i=0;i<100;i++){
+			nog.updateMotion();
+		}
+		
+		//checks to make sure score is > 0 since we hit a bucket
+		assertTrue(gf.getScore()> 0);
 	}
 
 }

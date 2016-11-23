@@ -21,12 +21,7 @@ public class TestGameInit {
 	}
 	
 	@Test
-	public void drawDisplayTest() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void drawTrajectoryTes() {
+	public void drawTrajectoryTest() {
 		gf.calculateTrajectory(45.0);
 		ArrayList<Point> pts = gf.getTrajectory();
 		assertTrue(pts.size() > 0);
