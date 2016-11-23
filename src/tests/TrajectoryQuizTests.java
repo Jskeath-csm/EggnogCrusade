@@ -19,6 +19,8 @@ public class TrajectoryQuizTests {
 	public void init(){
 		gameFrame = GameFrame.getInstance();
 		gameFrame.loadQuiz();
+		String[] imageFileNames = new String[0];
+		gameFrame.setConfigFiles("quizTest.txt", imageFileNames);
 	}
 	
 	//Load in quiz questions and answers
@@ -61,14 +63,17 @@ public class TrajectoryQuizTests {
 	public void testGradingQuiz(){
 		
 		//Test the starting ammo		
-		//assertEquals(0, gameFrame.getAmmoCount());
+		assertEquals(0, gameFrame.getAmmoCount());
 		
 		QuizDialog quizDialog = gameFrame.getQuizJDialog();
-		//Grade fake quiz with 3 correct answers
-		quizDialog.gradeQuiz();
+		//Grade fake quiz with the correct answer
+		String answer = "Answer 1";
 		
-		//Test ammo count again
-		//assertEquals(3, gameFrame.getAmmoCount());
+		assertTrue(quizDialog.gradeQuiz(answer));
+		assertFalse(quizDialog.gradeQuiz("badAnswer"));
+		
+		//Test ammo count again. Should be full
+		assertEquals(3, gameFrame.getAmmoCount());
 		
 	}
 }

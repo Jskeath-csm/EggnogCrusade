@@ -2,9 +2,9 @@ package game;
 
 public class QuizDialog {
 
-	public void gradeQuiz() {
+	public boolean gradeQuiz(String answer) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 }
