@@ -41,7 +41,7 @@ public class GameFrame {
 
 	public void loadImages() throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		
+		throw new FileNotFoundException();
 	}
 
 	public Eggnog getProjectile() {
@@ -70,6 +70,11 @@ public class GameFrame {
 	}
 
 	public QuizDialog getQuizJDialog() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getAmmoCount() {
 		// TODO Auto-generated method stub
 		return null;
 	}

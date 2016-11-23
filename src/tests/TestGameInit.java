@@ -16,7 +16,7 @@ public class TestGameInit {
 	private static GameFrame gf;
 	
 	@BeforeClass
-	public void setup(){
+	public static void setup(){
 		gf = GameFrame.getInstance();
 	}
 	
@@ -36,10 +36,10 @@ public class TestGameInit {
 	public void loadImagesTest(){
 		try{
 			gf.loadImages();
-			assert(true);
+			assertTrue(true);
 		}
 		catch(FileNotFoundException e){
-			assert(false);
+			assertTrue(false);
 		}
 	}
 	

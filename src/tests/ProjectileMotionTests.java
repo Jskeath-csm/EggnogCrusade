@@ -16,7 +16,7 @@ public class ProjectileMotionTests {
 	private static GameFrame gf;
 
 	@BeforeClass
-	public void setup(){
+	public static void setup(){
 		gf = GameFrame.getInstance();
 	}
 
