@@ -1,9 +1,14 @@
 package game;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 public class GameFrame {
 	static final int TRAJECTORY_NUM_POINTS = 50;
@@ -16,6 +21,13 @@ public class GameFrame {
 	
 	private String quizFileName;
 	private ArrayList<String> imageFileNames;
+	private BufferedImage bucketImage;
+	private BufferedImage catapultImage;
+	private BufferedImage backdropImage;
+	private BufferedImage coolSantaImage;
+	private BufferedImage eggnongImage;
+	private BufferedImage normalSantaImage;
+	private BufferedImage buttonImage;
 	
 	private QuizDialog quiz;
 	
@@ -34,7 +46,7 @@ public class GameFrame {
 		return gameInstance;
 	}
 	
-	public void setConfigFiles(String quizFileNameIn, String[] imageFileNamesIn) {
+	public void setConfigFiles(String quizFileNameIn, ArrayList<String> imageFileNamesIn) {
 		this.quizFileName = quizFileNameIn;
 		for(String s: imageFileNamesIn)
 			imageFileNames.add(s);
@@ -52,9 +64,19 @@ public class GameFrame {
 		return trajectoryPoints;
 	}
 
-	public void loadImages() throws FileNotFoundException {
+	public void loadImages() throws IOException {
 		// TODO Auto-generated method stub
-		throw new FileNotFoundException();
+		for(int i = 0; i < imageFileNames.size(); i++) {
+			String filename = imageFileNames.get(i);
+			BufferedImage image = ImageIO.read(new File(filename));
+			if(filename.contains("Bucket")) bucketImage = image;
+			else if (filename.contains("Backdrop")) backdropImage = image;
+			else if (filename.contains("Button")) buttonImage = image;
+			else if (filename.contains("Catapult")) catapultImage = image;
+			else if (filename.contains("CoolSanta")) coolSantaImage = image;
+			else if (filename.contains("Nog")) eggnongImage = image;
+			else if (filename.contains("NormalSanta")) normalSantaImage = image;
+		}
 	}
 
 	public Eggnog getProjectile() {

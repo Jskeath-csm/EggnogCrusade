@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class TrajectoryQuizTests {
 	public void init(){
 		gameFrame = GameFrame.getInstance();
 		gameFrame.loadQuiz();
-		String[] imageFileNames = new String[0];
+		ArrayList<String> imageFileNames = new ArrayList<String>();
 		gameFrame.setConfigFiles("quizTest.txt", imageFileNames);
 	}
 	

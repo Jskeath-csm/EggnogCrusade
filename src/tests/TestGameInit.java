@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -17,7 +18,16 @@ public class TestGameInit {
 	
 	@BeforeClass
 	public static void setup(){
+		ArrayList<String> filenames = new ArrayList<String>();
+		filenames.add("images/Backdrop.png");
+		filenames.add("images/Bucket.png");
+		filenames.add("images/Button.png");
+		filenames.add("images/Catapult.png");
+		filenames.add("images/CoolSanta.png");
+		filenames.add("images/Nog.png");
+		filenames.add("images/NormalSanta.png");
 		gf = GameFrame.getInstance();
+		gf.setConfigFiles("", filenames);
 	}
 	
 	@Test
@@ -33,7 +43,7 @@ public class TestGameInit {
 			gf.loadImages();
 			assertTrue(true);
 		}
-		catch(FileNotFoundException e){
+		catch(IOException e){
 			assertTrue(false);
 		}
 	}
