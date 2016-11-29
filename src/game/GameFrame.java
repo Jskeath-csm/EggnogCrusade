@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class GameFrame {
+	static final int TRAJECTORY_NUM_POINTS = 50;
+	
 	private static GameFrame gameInstance = new GameFrame();
 	
 	//Size of the gameBoard in Pixels
@@ -13,30 +15,41 @@ public class GameFrame {
 	public static final int gameYSize = 600;
 	
 	private String quizFileName;
-	private ArrayList<String> imageFileNames = new ArrayList<String>();
+	private ArrayList<String> imageFileNames;
 	
 	private QuizDialog quiz;
 	
+	//projectile and trajectory variables variables (trajectory uses the same)
+	float projectileForce = 20;
+	float projectileAngle = 45;
+	ArrayList<Point> trajectoryPoints;
+	
+	
 	private GameFrame() {
-		
+		imageFileNames = new ArrayList<String>();
+		trajectoryPoints = new ArrayList<Point>();
 	}
 	
 	public static GameFrame getInstance() {
 		return gameInstance;
 	}
 	
-	public void setConfigFiles(String quizFileName, String[] imageFileNames) {
-
+	public void setConfigFiles(String quizFileNameIn, String[] imageFileNamesIn) {
+		this.quizFileName = quizFileNameIn;
+		for(String s: imageFileNamesIn)
+			imageFileNames.add(s);
 	}
 
 	public void calculateTrajectory(double d) {
-		// TODO Auto-generated method stub
+		//clears point list
+		trajectoryPoints.clear();
+		
+		
 		
 	}
 
 	public ArrayList<Point> getTrajectory() {
-		// TODO Auto-generated method stub
-		return null;
+		return trajectoryPoints;
 	}
 
 	public void loadImages() throws FileNotFoundException {
