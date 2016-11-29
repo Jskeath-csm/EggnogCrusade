@@ -7,10 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
+import javax.swing.JPanel;
 import javax.imageio.ImageIO;
 
-public class GameFrame {
+public class GameFrame extends JPanel{
 	static final int TRAJECTORY_NUM_POINTS = 50;
 	
 	private static GameFrame gameInstance = new GameFrame();
@@ -32,14 +32,18 @@ public class GameFrame {
 	private QuizDialog quiz;
 	
 	//projectile and trajectory variables variables (trajectory uses the same)
-	float projectileForce = 20;
-	float projectileAngle = 45;
+	double projectileForce = 20;
+	double gravityForce = -9.8;
+	double projectileAngle = 45;
+	
 	ArrayList<Point> trajectoryPoints;
+	Point origin;
 	
 	
 	private GameFrame() {
 		imageFileNames = new ArrayList<String>();
 		trajectoryPoints = new ArrayList<Point>();
+		origin = new Point();
 	}
 	
 	public static GameFrame getInstance() {
@@ -53,11 +57,26 @@ public class GameFrame {
 	}
 
 	public void calculateTrajectory(double d) {
+		
+		double rad = d*180/Math.PI;
+		
 		//clears point list
 		trajectoryPoints.clear();
 		
+		//figures out dt value so that the trajectory can cover twice the width (more than enough)
+		double dt = ((float)this.getWidth() * 2.0 / (float)(TRAJECTORY_NUM_POINTS));
 		
-		
+		double t = 0;
+		int x, y;
+		for(int i=0; i<TRAJECTORY_NUM_POINTS;i++){
+			t = dt*i;
+			
+			//note y calculation accounts for image coordinate system
+			x = (int) (origin.x + this.projectileForce*Math.cos(rad)*t);
+			y = (int) (origin.y - this.projectileForce*Math.sin(rad)*t - 0.5*gravityForce*t*t);
+			
+			trajectoryPoints.add(new Point(x,y));
+		}		
 	}
 
 	public ArrayList<Point> getTrajectory() {
