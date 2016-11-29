@@ -1,5 +1,7 @@
 package game;
 
-public class Drawable {
+import java.awt.Graphics;
 
+public interface Drawable {
+	public void draw(Graphics g);
 }
