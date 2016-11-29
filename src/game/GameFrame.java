@@ -15,6 +15,7 @@ public class GameFrame extends JPanel{
 	
 	private static GameFrame gameInstance = new GameFrame();
 	
+
 	//Size of the gameBoard in Pixels
 	public static final int gameXSize = 600;
 	public static final int gameYSize = 600;
@@ -131,5 +132,29 @@ public class GameFrame extends JPanel{
 	public Object getAmmoCount() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public BufferedImage getBucketImage() {
+		return bucketImage;
+	}
+
+	public BufferedImage getCatapultImage() {
+		return catapultImage;
+	}
+
+	public BufferedImage getBackdropImage() {
+		return backdropImage;
+	}
+
+	public BufferedImage getCoolSantaImage() {
+		return coolSantaImage;
+	}
+
+	public BufferedImage getEggnongImage() {
+		return eggnongImage;
+	}
+
+	public BufferedImage getButtonImage() {
+		return buttonImage;
 	}
 }
