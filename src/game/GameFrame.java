@@ -49,10 +49,12 @@ public class GameFrame extends JPanel{
 	
 	
 	private GameFrame() {
-		imageFileNames = new ArrayList<String>();
+		imageFileNames = new ArrayList<String>();	
 		trajectoryPoints = new ArrayList<Point>();
 		origin = new Point();
 		controlGUI = new ControlGUI();
+		setSize(1000,900);
+		drawImages();
 	}
 	
 	public static GameFrame getInstance() {
@@ -104,6 +106,7 @@ public class GameFrame extends JPanel{
 			else if (filename.contains("CoolSanta")) coolSantaImage = image;
 			else if (filename.contains("Nog")) eggnongImage = image;
 			else if (filename.contains("NormalSanta")) normalSantaImage = image;
+			System.out.println(image);
 		}
 	}
 
@@ -166,12 +169,30 @@ public class GameFrame extends JPanel{
 		return controlGUI;
 	}
 	
+	public void drawImages() {
+		repaint();
+	}
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		GameFrame gf = GameFrame.getInstance();
+		ArrayList<String> filenames = new ArrayList<String>();
+		filenames.add("images/Backdrop.png");
+		filenames.add("images/Bucket.png");
+		filenames.add("images/Button.png");
+		filenames.add("images/Catapult.png");
+		filenames.add("images/CoolSanta.png");
+		filenames.add("images/Nog.png");
+		filenames.add("images/NormalSanta.png");
+		gf.setConfigFiles("", filenames);
+		try{
+			gf.loadImages();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 		frame.setSize(1920, 1080);
 		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
+		frame.add(gf, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}
 
@@ -183,7 +204,8 @@ public class GameFrame extends JPanel{
 		super.paintComponent(g);
 		
 		//TODO - draw the images (buckets, wall, background etc.)
-		
+		g.drawImage(getCoolSantaImage(), 100, 100, null);
+
 		//Draws the trajectory
 		for(int i=0;i<trajectoryPoints.size()-1;i++){
 			g.setColor(Color.GREEN);
