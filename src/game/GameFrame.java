@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,10 +8,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.imageio.ImageIO;
 
-public class GameFrame extends JPanel{
+public class GameFrame extends JFrame{
 	static final int TRAJECTORY_NUM_POINTS = 50;
 	
 	private static GameFrame gameInstance = new GameFrame();
@@ -31,6 +34,7 @@ public class GameFrame extends JPanel{
 	private BufferedImage buttonImage;
 	
 	private QuizDialog quiz;
+	private ControlGUI controlGUI;
 	
 	//projectile and trajectory variables variables (trajectory uses the same)
 	double projectileForce = 20;
@@ -45,6 +49,7 @@ public class GameFrame extends JPanel{
 		imageFileNames = new ArrayList<String>();
 		trajectoryPoints = new ArrayList<Point>();
 		origin = new Point();
+		controlGUI = new ControlGUI();
 	}
 	
 	public static GameFrame getInstance() {
@@ -152,6 +157,18 @@ public class GameFrame extends JPanel{
 
 	public BufferedImage getEggnongImage() {
 		return eggnongImage;
+	}
+	
+	public ControlGUI getControlGUI() {
+		return controlGUI;
+	}
+	
+	
+	public static void main(String[] args) {
+		GameFrame gf = GameFrame.getInstance();
+		gf.setSize(1920, 1080);
+		gf.add(gf.getControlGUI(), BorderLayout.SOUTH);
+		gf.setVisible(true);
 	}
 
 	public BufferedImage getButtonImage() {
