@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JPanel;
+
 import javax.imageio.ImageIO;
 
 public class GameFrame extends JPanel{
@@ -156,5 +159,22 @@ public class GameFrame extends JPanel{
 
 	public BufferedImage getButtonImage() {
 		return buttonImage;
+	}
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		
+		//TODO - draw the images (buckets, wall, background etc.)
+		
+		//Draws the trajectory
+		for(int i=0;i<trajectoryPoints.size()-1;i++){
+			g.setColor(Color.GREEN);
+			g.drawLine(trajectoryPoints.get(i).x,
+					trajectoryPoints.get(i).y,
+					trajectoryPoints.get(i+1).x,
+					trajectoryPoints.get(i+1).y);
+		}
+		
+		repaint();
 	}
 }
