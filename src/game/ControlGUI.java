@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -32,17 +33,31 @@ public class ControlGUI extends JPanel{
 	}
 
 	private JPanel createAngleBox() {
-		JPanel anglePanel = new JPanel();
+		JPanel angleDisplayPanel = new JPanel();
+		angleDisplayPanel.setBorder(new TitledBorder (new EtchedBorder(), "Angle Entering System"));
+		angleDisplayPanel.setLayout(new BoxLayout(angleDisplayPanel, BoxLayout.Y_AXIS));
+		
+		JPanel angleEnterPanel = new JPanel();
 		JLabel nameLabel = new JLabel("Enter Angle");
+		nameLabel.setSize(50, 50);
+		angleEnterPanel.add(nameLabel);
+		
 		JTextField angle = new JTextField(2); 
-		anglePanel.setLayout(new BoxLayout(anglePanel, BoxLayout.Y_AXIS));
-		anglePanel.add(nameLabel);
-		anglePanel.add(angle);
-		anglePanel.setBorder(new TitledBorder (new EtchedBorder(), "Angle Entering System"));
-		JLabel jlabel = new JLabel("Hello there private, welcome to the nog corps");
-		jlabel.setFont(new Font("Verdana",1,20));
-		anglePanel.add(jlabel);
-		return anglePanel;
+		angleEnterPanel.add(angle);
+		
+		angleDisplayPanel.add(angleEnterPanel);
+		
+		JTextArea  jlabel = new JTextArea("To arms private, the people of the city "
+				+ "want western culture. Dick Cheney says the best way to do this is with the spirit of Christmas. "
+				+ "The civilians have set out buckets to catch America's famous eggnog, "
+				+ "launch the nog into these buckets to save the holy land.");
+		jlabel.setFont(new Font("Verdana",1,15));
+		jlabel.setWrapStyleWord(true);
+		jlabel.setLineWrap(true);
+		jlabel.setEditable(false);
+		jlabel.setBackground(null);
+		angleDisplayPanel.add(jlabel);
+		return angleDisplayPanel;
 	}
 
 	private JLabel fireButtonPanel(){
