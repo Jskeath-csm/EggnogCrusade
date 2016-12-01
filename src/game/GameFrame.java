@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +15,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import javax.swing.Timer;
 import javax.imageio.ImageIO;
 
 public class GameFrame extends JPanel{
@@ -44,6 +46,8 @@ public class GameFrame extends JPanel{
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 	
+	Timer gameTimer;
+	
 	ArrayList<Point> trajectoryPoints;
 	Point origin;
 	
@@ -53,6 +57,9 @@ public class GameFrame extends JPanel{
 		trajectoryPoints = new ArrayList<Point>();
 		origin = new Point();
 		controlGUI = new ControlGUI();
+		
+		gameTimer = new Timer(500, new GameTimer(this));
+		gameTimer.start();
 	}
 	
 	public static GameFrame getInstance() {
@@ -179,12 +186,30 @@ public class GameFrame extends JPanel{
 		return buttonImage;
 	}
 	
+	private class GameTimer implements ActionListener{
+
+		private GameFrame gf;
+		GameTimer(GameFrame gf){
+			this.gf = gf;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Timer triggered");
+			gf.repaint();
+		}
+		
+	};
+	
+	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
 		//TODO - draw the images (buckets, wall, background etc.)
 		
 		//Draws the trajectory
+		calculateTrajectory(45.0); //TESTING
+		
 		for(int i=0;i<trajectoryPoints.size()-1;i++){
 			g.setColor(Color.GREEN);
 			g.drawLine(trajectoryPoints.get(i).x,
