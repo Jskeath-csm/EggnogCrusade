@@ -51,7 +51,7 @@ public class ControlGUI extends JPanel{
 		JPanel nogPanel = new JPanel();
 		JLabel nameLabel = new JLabel("Ammo:");
 		nogPanel.add(nameLabel);
-		//BufferedImage nogPic = gameFrame.get  Image();
+		//BufferedImage nogPic = gameFrame.getImage();
 		BufferedImage nogPic;
 		try {
 			nogPic = ImageIO.read(new File("images/Nog.png"));
