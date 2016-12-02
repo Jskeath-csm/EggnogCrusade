@@ -1,8 +1,9 @@
 package game;
 
+import java.awt.Graphics;
 import java.awt.Point;
 
-public class Eggnog {
+public class Eggnog implements Drawable {
 	private double deltaT;
 	private double theta;
 	
@@ -11,6 +12,13 @@ public class Eggnog {
 	
 	private boolean isVisible;
 	
+	public Eggnog(int pixelX, int pixelY, boolean isVisible) {
+		super();
+		this.pixelX = pixelX;
+		this.pixelY = pixelY;
+		this.isVisible = isVisible;
+	}
+
 	public void setDeltaT(double deltaT) {
 		// TODO Auto-generated method stub
 		
@@ -32,13 +40,19 @@ public class Eggnog {
 	}
 
 	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		Point returnPoint = new Point();
+		returnPoint.setLocation(pixelX, pixelY);
+		return returnPoint;
 	}
 
 	public boolean getVisible() {
 		// TODO Auto-generated method stub
-		return false;
+		return isVisible;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(GameFrame.getInstance().getEggnongImage(), pixelX, pixelY, null);
 	}
 
 }

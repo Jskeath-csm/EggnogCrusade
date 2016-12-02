@@ -23,11 +23,12 @@ public class GameFrame extends JPanel{
 	
 	private static GameFrame gameInstance = new GameFrame();
 	
-
+	
 	//Size of the gameBoard in Pixels
 	public static final int gameXSize = 600;
 	public static final int gameYSize = 600;
 	
+	//image variables
 	private String quizFileName;
 	private ArrayList<String> imageFileNames;
 	private BufferedImage bucketImage;
@@ -38,11 +39,17 @@ public class GameFrame extends JPanel{
 	private BufferedImage normalSantaImage;
 	private BufferedImage buttonImage;
 	
+	//quiz and controll variables.
 	private QuizDialog quiz;
 	private ControlGUI controlGUI;
 	
+	//Boundary and Objects to interact with
+	private ArrayList<Boundary> boundaryList;
+	private ArrayList<Drawable> imageList;
+	private Eggnog projectile;
+	
 	//projectile and trajectory variables variables (trajectory uses the same)
-	double projectileForce = 20;
+	double projectileForce = 100;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 	
@@ -61,6 +68,26 @@ public class GameFrame extends JPanel{
 		drawImages();
 		gameTimer = new Timer(500, new GameTimer(this));
 		gameTimer.start();
+		
+		//Setup starting locations
+		projectile = new Eggnog(0,320, true);
+		origin.setLocation(projectile.getPosition().x, projectile.getPosition().y);
+
+		boundaryList = new ArrayList<Boundary>();
+		imageList = new ArrayList<Drawable>();
+		imageList.add(projectile);
+		Wall wall = new Wall(950,500,20,200);
+		boundaryList.add(wall);
+		imageList.add(wall);
+		Bucket bucket1 = new Bucket(1100,600,100,100);
+		Bucket bucket2 = new Bucket(1400,600,100,100);
+		Bucket bucket3 = new Bucket(1700,600,100,100);
+		boundaryList.add(bucket1);
+		boundaryList.add(bucket2);
+		boundaryList.add(bucket3);
+		imageList.add(bucket1);
+		imageList.add(bucket2);
+		imageList.add(bucket3);
 	}
 	
 	public static GameFrame getInstance() {
@@ -75,25 +102,26 @@ public class GameFrame extends JPanel{
 
 	public void calculateTrajectory(double d) {
 		
-		double rad = d*180/Math.PI;
+		double rad = d*Math.PI/180;
 		
 		//clears point list
 		trajectoryPoints.clear();
 		
 		//figures out dt value so that the trajectory can cover twice the width (more than enough)
-		double dt = ((float)this.getWidth() * 2.0 / (float)(TRAJECTORY_NUM_POINTS));
-		
+		//double dt = ((float)this.getWidth() * 2.0 / (float)(TRAJECTORY_NUM_POINTS));
+		double dt = 1;
 		double t = 0;
 		int x, y;
 		for(int i=0; i<TRAJECTORY_NUM_POINTS;i++){
 			t = dt*i;
 			
 			//note y calculation accounts for image coordinate system
-			x = (int) (origin.x + this.projectileForce*Math.cos(rad)*t);
-			y = (int) (origin.y - this.projectileForce*Math.sin(rad)*t - 0.5*gravityForce*t*t);
+			x = (int) Math.round((origin.x + this.projectileForce*Math.cos(rad)*t));
+			y = (int) Math.round((origin.y - this.projectileForce*Math.sin(rad)*t - 0.5*gravityForce*t*t));
 			
 			trajectoryPoints.add(new Point(x,y));
-		}		
+			System.out.println(x + " | " + y);
+			}		
 	}
 
 	public ArrayList<Point> getTrajectory() {
@@ -199,6 +227,7 @@ public class GameFrame extends JPanel{
 		frame.setSize(1920, 1080);
 		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
 		frame.add(gf, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
 
@@ -224,12 +253,24 @@ public class GameFrame extends JPanel{
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		//Clear the panel first
 		
 		//TODO - draw the images (buckets, wall, background etc.)
-		g.drawImage(getCoolSantaImage(), 100, 100, null);
-
+		//Draw only the static images
+		g.drawImage(getCoolSantaImage(), 150, 0, null);
+		g.drawImage(getBackdropImage(), 1000, 0, null);
+		g.drawImage(getCatapultImage(), 0, 400, null);
+		
+		//Draw each image
+		for(Drawable d: imageList) {
+			d.draw(g);
+		}
+		
 		//Draws the trajectory
 		calculateTrajectory(45.0); //TESTING
+		for(int i = 1; i < trajectoryPoints.size(); i++) {
+			g.drawLine(trajectoryPoints.get(i-1).x, trajectoryPoints.get(i).y, trajectoryPoints.get(i-1).x, trajectoryPoints.get(i).y);
+		}
 		
 		for(int i=0;i<trajectoryPoints.size()-1;i++){
 			g.setColor(Color.GREEN);
