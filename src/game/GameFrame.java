@@ -1,8 +1,10 @@
 package game;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -267,18 +269,16 @@ public class GameFrame extends JPanel{
 		}
 		
 		//Draws the trajectory
-		calculateTrajectory(45.0); //TESTING
-		for(int i = 1; i < trajectoryPoints.size(); i++) {
-			g.drawLine(trajectoryPoints.get(i-1).x, trajectoryPoints.get(i).y, trajectoryPoints.get(i-1).x, trajectoryPoints.get(i).y);
-		}
+		Graphics2D g2 = (Graphics2D)g;
+		g2.setStroke(new BasicStroke(5));
+		g2.setColor(Color.GREEN);
 		
-		for(int i=0;i<trajectoryPoints.size()-1;i++){
-			g.setColor(Color.GREEN);
-			g.drawLine(trajectoryPoints.get(i).x,
-					trajectoryPoints.get(i).y,
-					trajectoryPoints.get(i+1).x,
-					trajectoryPoints.get(i+1).y);
-		}
+		calculateTrajectory(45.0); //TESTING
+		
+		for(int i=0;i<trajectoryPoints.size()-1;i++)
+			g2.drawLine(trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,trajectoryPoints.get(i+1).x,trajectoryPoints.get(i+1).y);
+		
+		
 		
 		repaint();
 	}
