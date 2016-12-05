@@ -11,12 +11,6 @@ public class Wall extends Boundary implements Drawable{
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 	}
-	
-	@Override
-	public boolean detectCollision(Eggnog proj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void draw(Graphics g) {

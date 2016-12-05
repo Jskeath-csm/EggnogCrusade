@@ -22,6 +22,7 @@ public class ControlGUI extends JPanel{
 
 	private GameFrame gameFrame;
 	private JTextField angle;
+	private double theta = 45;
 	
 	private boolean firePressed = false;
 
@@ -152,6 +153,11 @@ public class ControlGUI extends JPanel{
 	}
 	
 	public double getAngle(){
-		return Double.parseDouble(angle.getText());
+		double a = theta;
+		try{
+			a = Double.parseDouble(angle.getText());
+		}
+		catch(NumberFormatException e){	}
+		return a;
 	}
 }

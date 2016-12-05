@@ -20,8 +20,6 @@ public class Bucket extends Boundary implements Drawable {
 	}
 	
 	public void setPosition(Point point) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

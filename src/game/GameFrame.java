@@ -27,8 +27,8 @@ public class GameFrame extends JPanel{
 
 
 	//Size of the gameBoard in Pixels
-	public static final int gameXSize = 600;
-	public static final int gameYSize = 600;
+	public static final int gameSizeX = 1920;
+	public static final int gameSizeY = 1080;
 
 	//image variables
 	private String quizFileName;
@@ -229,7 +229,7 @@ public class GameFrame extends JPanel{
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		frame.setSize(1920, 1080);
+		frame.setSize(gameSizeX, gameSizeY);
 		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
 		frame.add(gf, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -256,13 +256,28 @@ public class GameFrame extends JPanel{
 				gf.getControlGUI().resetFired();
 				projectile.reset();
 				projectile.setVisible();
-				projectile.setMoving();
+				projectile.setMoving(true);
 				projectile.setAngle(gf.getControlGUI().getAngle());
 			}
 
 			if(projectile.isMoving()){
 				projectile.updateMotion();
 				//check collision here too
+				
+				for(Boundary b: boundaryList){
+					if(b.detectCollision(projectile)){
+						System.out.println("HIT");
+						projectile.setMoving(false);
+						projectile.reset();
+					}
+					
+					if(projectile.getPosition().x > gameSizeX|| projectile.getPosition().y > gameSizeY){
+						System.out.println("HIT");
+						projectile.setMoving(false);
+						projectile.reset();
+					}
+						
+				}
 			}
 
 			gf.repaint();
@@ -298,8 +313,6 @@ public class GameFrame extends JPanel{
 			for(int i=0;i<trajectoryPoints.size()-1;i++)
 				g2.drawLine(trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,trajectoryPoints.get(i+1).x,trajectoryPoints.get(i+1).y);
 		}
-
-
 
 		repaint();
 	}

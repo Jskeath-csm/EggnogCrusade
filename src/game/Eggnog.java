@@ -66,8 +66,8 @@ public class Eggnog implements Drawable {
 		isVisible = true;
 	}
 	
-	public void setMoving(){
-		isMoving = true;
+	public void setMoving(boolean b){
+		isMoving = b;
 	}
 	
 	public boolean isMoving(){
