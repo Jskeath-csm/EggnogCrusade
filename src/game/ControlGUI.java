@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -70,18 +71,15 @@ public class ControlGUI extends JPanel{
 	}
 
 	private JLabel fireButtonPanel(){
-		//BufferedImage buttonPic = gameFrame.getButtonImage();
-		BufferedImage buttonPic;
+		URL url = getClass().getResource("/images/Button.png");
+		JLabel picLabel = new JLabel();
 		try {
-			buttonPic = ImageIO.read(new File("images/Button.png"));
-			JLabel picLabel = new JLabel(new ImageIcon(buttonPic));
-			picLabel.addMouseListener(new FireListener());
-			return picLabel;
+			picLabel.setIcon(new ImageIcon(ImageIO.read(url)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		picLabel.addMouseListener(new FireListener());
+		return picLabel;
 	}
 
 	private class FireListener implements MouseListener{
@@ -115,7 +113,8 @@ public class ControlGUI extends JPanel{
 		//BufferedImage nogPic = gameFrame.getImage();
 		BufferedImage nogPic;
 		try {
-			nogPic = ImageIO.read(new File("images/Nog.png"));
+			URL url = getClass().getResource("/images/Nog.png");
+			nogPic = ImageIO.read(url);
 
 			//Get ammo count and draw all the nogs
 			//gameFrame.getAmmoCount();

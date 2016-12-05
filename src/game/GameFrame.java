@@ -6,15 +6,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -39,7 +42,7 @@ public class GameFrame extends JPanel{
 	private BufferedImage coolSantaImage;
 	private BufferedImage eggnongImage;
 	private BufferedImage normalSantaImage;
-	private BufferedImage buttonImage;
+	private ImageIcon buttonImage;
 
 	//quiz and controll variables.
 	private QuizDialog quiz;
@@ -62,7 +65,25 @@ public class GameFrame extends JPanel{
 
 
 	private GameFrame() {
-		imageFileNames = new ArrayList<String>();	
+
+		//Filenames for the images
+		imageFileNames = new ArrayList<String>();
+		ArrayList<String> filenames = new ArrayList<String>();
+		filenames.add("/images/Backdrop.png");
+		filenames.add("/images/Bucket.png");
+		filenames.add("/images/Catapult2.png");
+		filenames.add("/images/CoolSanta2.png");
+		filenames.add("/images/Nog2.png");
+		filenames.add("/images/NormalSanta.png");
+
+		setConfigFiles("", filenames);
+		try{
+			loadImages();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+
+
 		trajectoryPoints = new ArrayList<Point>();
 		origin = new Point();
 		controlGUI = new ControlGUI();
@@ -134,20 +155,22 @@ public class GameFrame extends JPanel{
 	}
 
 	public void loadImages() throws IOException {
-		// TODO Auto-generated method stub
 		for(int i = 0; i < imageFileNames.size(); i++) {
 			String filename = imageFileNames.get(i);
-			BufferedImage image = ImageIO.read(new File(filename));
+			URL url = getClass().getResource(filename);
+
+
+			BufferedImage image = ImageIO.read(url);
+
 			if(filename.contains("Bucket")) bucketImage = image;
 			else if (filename.contains("Backdrop")) backdropImage = image;
-			else if (filename.contains("Button")) buttonImage = image;
 			else if (filename.contains("Catapult")) catapultImage = image;
 			else if (filename.contains("CoolSanta")) coolSantaImage = image;
 			else if (filename.contains("Nog")) eggnongImage = image;
 			else if (filename.contains("NormalSanta")) normalSantaImage = image;
-			System.out.println(image);
 		}
 	}
+
 
 	public Eggnog getProjectile() {
 		// TODO Auto-generated method stub
@@ -212,31 +235,7 @@ public class GameFrame extends JPanel{
 		repaint();
 	}
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		GameFrame gf = GameFrame.getInstance();
-		ArrayList<String> filenames = new ArrayList<String>();
-		filenames.add("images/Backdrop.png");
-		filenames.add("images/Bucket.png");
-		filenames.add("images/Button.png");
-		filenames.add("images/Catapult.png");
-		filenames.add("images/CoolSanta.png");
-		filenames.add("images/Nog.png");
-		filenames.add("images/NormalSanta.png");
-		gf.setConfigFiles("", filenames);
-		try{
-			gf.loadImages();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		frame.setSize(gameSizeX, gameSizeY);
-		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
-		frame.add(gf, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-
-	public BufferedImage getButtonImage() {
+	public ImageIcon getButtonImage() {
 		return buttonImage;
 	}
 
@@ -263,20 +262,20 @@ public class GameFrame extends JPanel{
 			if(projectile.isMoving()){
 				projectile.updateMotion();
 				//check collision here too
-				
+
 				for(Boundary b: boundaryList){
 					if(b.detectCollision(projectile)){
 						System.out.println("HIT");
 						projectile.setMoving(false);
 						projectile.reset();
 					}
-					
+
 					if(projectile.getPosition().x > gameSizeX|| projectile.getPosition().y > gameSizeY){
 						System.out.println("HIT");
 						projectile.setMoving(false);
 						projectile.reset();
 					}
-						
+
 				}
 			}
 
@@ -301,8 +300,6 @@ public class GameFrame extends JPanel{
 			d.draw(g);
 		}
 
-
-
 		//Draws the trajectory
 		if(!projectile.isMoving()){
 			Graphics2D g2 = (Graphics2D)g;
@@ -316,4 +313,20 @@ public class GameFrame extends JPanel{
 
 		repaint();
 	}
+
+
+	//////////////MAIN/////////////////////////
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		GameFrame gf = GameFrame.getInstance();	
+
+		frame.setSize(gameSizeX, gameSizeY);
+		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
+		frame.add(gf, BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
 }
+
+
