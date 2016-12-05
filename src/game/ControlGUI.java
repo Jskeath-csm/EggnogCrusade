@@ -113,7 +113,7 @@ public class ControlGUI extends JPanel{
 		//BufferedImage nogPic = gameFrame.getImage();
 		BufferedImage nogPic;
 		try {
-			URL url = getClass().getResource("/images/Nog.png");
+			URL url = getClass().getResource("/images/Nog2.png");
 			nogPic = ImageIO.read(url);
 
 			//Get ammo count and draw all the nogs
