@@ -76,7 +76,9 @@ public class Eggnog implements Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(GameFrame.getInstance().getEggnongImage(), pixelX, pixelY, null);
+		g.drawImage(GameFrame.getInstance().getEggnongImage(), 
+				pixelX-GameFrame.getInstance().getEggnongImage().getWidth()/2,
+				pixelY-GameFrame.getInstance().getEggnongImage().getHeight()/2, null);
 	}
 	
 	public void setOrigin(Point p){

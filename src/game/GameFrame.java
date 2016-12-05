@@ -51,7 +51,7 @@ public class GameFrame extends JPanel{
 	private Eggnog projectile;
 
 	//projectile and trajectory variables variables (trajectory uses the same)
-	double projectileForce = 100;
+	double projectileForce = 120;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 
@@ -72,7 +72,7 @@ public class GameFrame extends JPanel{
 		gameTimer.start();
 
 		//Setup starting locations and projectile parameters
-		projectile = new Eggnog(0,320, true);
+		projectile = new Eggnog(0+78,320+121, true);
 		origin.setLocation(projectile.getPosition().x, projectile.getPosition().y);
 		projectile.setOrigin(origin);
 		projectile.setParameters(projectileForce, gravityForce);
