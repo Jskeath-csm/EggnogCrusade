@@ -13,7 +13,7 @@ public class Wall extends Boundary implements Drawable{
 	}
 	
 	@Override
-	public boolean detectCollision(Boundary testingBoundary) {
+	public boolean detectCollision(Eggnog proj) {
 		// TODO Auto-generated method stub
 		return false;
 	}

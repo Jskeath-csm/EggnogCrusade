@@ -6,6 +6,14 @@ public abstract class Boundary {
 	
 	protected int sizeX;
 	protected int sizeY;
-	
-	public abstract boolean detectCollision(Boundary testingBoundary);
+
+	public boolean detectCollision(Eggnog proj) {
+		int pX = proj.getPosition().x;
+		int pY = proj.getPosition().y;
+		
+		if((pX > pixelX && pX < pixelX + sizeX) && (pY < pixelY && pY > pixelY - sizeY))
+			return true;
+		else
+			return false;
+	}
 }

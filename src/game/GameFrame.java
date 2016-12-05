@@ -22,14 +22,14 @@ import javax.imageio.ImageIO;
 
 public class GameFrame extends JPanel{
 	static final int TRAJECTORY_NUM_POINTS = 50;
-	
+
 	private static GameFrame gameInstance = new GameFrame();
-	
-	
+
+
 	//Size of the gameBoard in Pixels
 	public static final int gameXSize = 600;
 	public static final int gameYSize = 600;
-	
+
 	//image variables
 	private String quizFileName;
 	private ArrayList<String> imageFileNames;
@@ -40,27 +40,27 @@ public class GameFrame extends JPanel{
 	private BufferedImage eggnongImage;
 	private BufferedImage normalSantaImage;
 	private BufferedImage buttonImage;
-	
+
 	//quiz and controll variables.
 	private QuizDialog quiz;
 	private ControlGUI controlGUI;
-	
+
 	//Boundary and Objects to interact with
 	private ArrayList<Boundary> boundaryList;
 	private ArrayList<Drawable> imageList;
 	private Eggnog projectile;
-	
+
 	//projectile and trajectory variables variables (trajectory uses the same)
 	double projectileForce = 100;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
-	
+
 	Timer gameTimer;
-	
+
 	ArrayList<Point> trajectoryPoints;
 	Point origin;
-	
-	
+
+
 	private GameFrame() {
 		imageFileNames = new ArrayList<String>();	
 		trajectoryPoints = new ArrayList<Point>();
@@ -68,12 +68,15 @@ public class GameFrame extends JPanel{
 		controlGUI = new ControlGUI();
 		setSize(1000,900);
 		drawImages();
-		gameTimer = new Timer(500, new GameTimer(this));
+		gameTimer = new Timer(30, new GameTimer(this));
 		gameTimer.start();
-		
-		//Setup starting locations
+
+		//Setup starting locations and projectile parameters
 		projectile = new Eggnog(0,320, true);
 		origin.setLocation(projectile.getPosition().x, projectile.getPosition().y);
+		projectile.setOrigin(origin);
+		projectile.setParameters(projectileForce, gravityForce);
+
 
 		boundaryList = new ArrayList<Boundary>();
 		imageList = new ArrayList<Drawable>();
@@ -91,11 +94,11 @@ public class GameFrame extends JPanel{
 		imageList.add(bucket2);
 		imageList.add(bucket3);
 	}
-	
+
 	public static GameFrame getInstance() {
 		return gameInstance;
 	}
-	
+
 	public void setConfigFiles(String quizFileNameIn, ArrayList<String> imageFileNamesIn) {
 		this.quizFileName = quizFileNameIn;
 		for(String s: imageFileNamesIn)
@@ -103,12 +106,12 @@ public class GameFrame extends JPanel{
 	}
 
 	public void calculateTrajectory(double d) {
-		
+
 		double rad = d*Math.PI/180;
-		
+
 		//clears point list
 		trajectoryPoints.clear();
-		
+
 		//figures out dt value so that the trajectory can cover twice the width (more than enough)
 		//double dt = ((float)this.getWidth() * 2.0 / (float)(TRAJECTORY_NUM_POINTS));
 		double dt = 1;
@@ -116,14 +119,14 @@ public class GameFrame extends JPanel{
 		int x, y;
 		for(int i=0; i<TRAJECTORY_NUM_POINTS;i++){
 			t = dt*i;
-			
+
 			//note y calculation accounts for image coordinate system
 			x = (int) Math.round((origin.x + this.projectileForce*Math.cos(rad)*t));
 			y = (int) Math.round((origin.y - this.projectileForce*Math.sin(rad)*t - 0.5*gravityForce*t*t));
-			
+
 			trajectoryPoints.add(new Point(x,y));
-			System.out.println(x + " | " + y);
-			}		
+			//System.out.println(x + " | " + y);
+		}		
 	}
 
 	public ArrayList<Point> getTrajectory() {
@@ -153,7 +156,7 @@ public class GameFrame extends JPanel{
 
 	public void loadQuiz() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public int getScore() {
@@ -168,7 +171,7 @@ public class GameFrame extends JPanel{
 
 	public void displayQuiz() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public QuizDialog getQuizJDialog() {
@@ -180,7 +183,7 @@ public class GameFrame extends JPanel{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public BufferedImage getBucketImage() {
 		return bucketImage;
 	}
@@ -200,15 +203,15 @@ public class GameFrame extends JPanel{
 	public BufferedImage getEggnongImage() {
 		return eggnongImage;
 	}
-	
+
 	public ControlGUI getControlGUI() {
 		return controlGUI;
 	}
-	
+
 	public void drawImages() {
 		repaint();
 	}
-	
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		GameFrame gf = GameFrame.getInstance();
@@ -236,7 +239,7 @@ public class GameFrame extends JPanel{
 	public BufferedImage getButtonImage() {
 		return buttonImage;
 	}
-	
+
 	private class GameTimer implements ActionListener{
 
 		private GameFrame gf;
@@ -246,40 +249,58 @@ public class GameFrame extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Timer triggered");
+
+			//TIMER ACTIONS HERE
+			//System.out.println("Timer triggered");
+			if(gf.getControlGUI().isFired()){
+				gf.getControlGUI().resetFired();
+				projectile.reset();
+				projectile.setVisible();
+				projectile.setMoving();
+				projectile.setAngle(gf.getControlGUI().getAngle());
+			}
+
+			if(projectile.isMoving()){
+				projectile.updateMotion();
+				//check collision here too
+			}
+
 			gf.repaint();
 		}
-		
+
 	};
-	
+
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		//Clear the panel first
-		
+
 		//TODO - draw the images (buckets, wall, background etc.)
 		//Draw only the static images
 		g.drawImage(getCoolSantaImage(), 150, 0, null);
 		g.drawImage(getBackdropImage(), 1000, 0, null);
 		g.drawImage(getCatapultImage(), 0, 400, null);
-		
+
 		//Draw each image
 		for(Drawable d: imageList) {
 			d.draw(g);
 		}
-		
+
+
+
 		//Draws the trajectory
-		Graphics2D g2 = (Graphics2D)g;
-		g2.setStroke(new BasicStroke(5));
-		g2.setColor(Color.GREEN);
-		
-		calculateTrajectory(45.0); //TESTING
-		
-		for(int i=0;i<trajectoryPoints.size()-1;i++)
-			g2.drawLine(trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,trajectoryPoints.get(i+1).x,trajectoryPoints.get(i+1).y);
-		
-		
-		
+		if(!projectile.isMoving()){
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setStroke(new BasicStroke(5));
+			g2.setColor(Color.GREEN);
+
+			calculateTrajectory(getControlGUI().getAngle());
+			for(int i=0;i<trajectoryPoints.size()-1;i++)
+				g2.drawLine(trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,trajectoryPoints.get(i+1).x,trajectoryPoints.get(i+1).y);
+		}
+
+
+
 		repaint();
 	}
 }

@@ -28,11 +28,4 @@ public class Bucket extends Boundary implements Drawable {
 	public void draw(Graphics g) {
 		g.drawImage(GameFrame.getInstance().getBucketImage(), pixelX, pixelY, null);
 	}
-
-	@Override
-	public boolean detectCollision(Boundary testingBoundary) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

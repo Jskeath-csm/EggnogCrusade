@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +21,9 @@ import javax.swing.border.TitledBorder;
 public class ControlGUI extends JPanel{
 
 	private GameFrame gameFrame;
+	private JTextField angle;
+	
+	private boolean firePressed = false;
 
 	public ControlGUI() {
 		gameFrame = GameFrame.getInstance();
@@ -42,7 +49,8 @@ public class ControlGUI extends JPanel{
 		nameLabel.setSize(50, 50);
 		angleEnterPanel.add(nameLabel);
 		
-		JTextField angle = new JTextField(2); 
+		angle = new JTextField(2); 
+		angle.setText("45");
 		angleEnterPanel.add(angle);
 		
 		angleDisplayPanel.add(angleEnterPanel);
@@ -66,6 +74,7 @@ public class ControlGUI extends JPanel{
 		try {
 			buttonPic = ImageIO.read(new File("images/Button.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(buttonPic));
+			picLabel.addMouseListener(new FireListener());
 			return picLabel;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -74,6 +83,28 @@ public class ControlGUI extends JPanel{
 		return null;
 	}
 
+	private class FireListener implements MouseListener{
+
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			System.out.println("Printed");
+			firePressed = true;			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {}
+		
+	}
 
 	private JPanel createAmmoBox() {
 		JPanel nogPanel = new JPanel();
@@ -111,5 +142,16 @@ public class ControlGUI extends JPanel{
 		frame.add(gui);
 		frame.setVisible(true);
 
+	}
+	
+	public boolean isFired(){
+		return firePressed;
+	}
+	public void resetFired(){
+		firePressed = false;
+	}
+	
+	public double getAngle(){
+		return Double.parseDouble(angle.getText());
 	}
 }
