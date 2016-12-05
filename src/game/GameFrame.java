@@ -42,6 +42,11 @@ public class GameFrame extends JPanel{
 	private BufferedImage coolSantaImage;
 	private BufferedImage eggnongImage;
 	private BufferedImage normalSantaImage;
+	
+	private BufferedImage l1;
+	private BufferedImage l2;
+	private BufferedImage l3;
+	
 	private ImageIcon buttonImage;
 
 	//quiz and controll variables.
@@ -169,6 +174,18 @@ public class GameFrame extends JPanel{
 			else if (filename.contains("Nog")) eggnongImage = image;
 			else if (filename.contains("NormalSanta")) normalSantaImage = image;
 		}
+		
+		URL url = getClass().getResource("/images/lightR.png");
+		BufferedImage image = ImageIO.read(url);
+		l1 = image;
+		
+		url = getClass().getResource("/images/lightG.png");
+		image = ImageIO.read(url);
+		l2 = image;
+		
+		url = getClass().getResource("/images/lightB.png");
+		image = ImageIO.read(url);
+		l3 = image;
 	}
 
 
@@ -304,11 +321,19 @@ public class GameFrame extends JPanel{
 		if(!projectile.isMoving()){
 			Graphics2D g2 = (Graphics2D)g;
 			g2.setStroke(new BasicStroke(5));
-			g2.setColor(Color.GREEN);
+			g2.setColor(new Color((float)0.0, (float)0.4, (float)0.0));
 
 			calculateTrajectory(getControlGUI().getAngle());
-			for(int i=0;i<trajectoryPoints.size()-1;i++)
+			for(int i=0;i<trajectoryPoints.size()-1;i++){
 				g2.drawLine(trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,trajectoryPoints.get(i+1).x,trajectoryPoints.get(i+1).y);
+				
+				double slope = ((float)trajectoryPoints.get(i+1).y-(float)trajectoryPoints.get(i).y)/((float)trajectoryPoints.get(i+1).x-(float)trajectoryPoints.get(i).x);
+				int dist = trajectoryPoints.get(i+1).x - trajectoryPoints.get(i).x;
+				
+				g.drawImage(l1, trajectoryPoints.get(i).x,trajectoryPoints.get(i).y,null);
+				g.drawImage(l2, trajectoryPoints.get(i).x + (int)(dist*0.33),trajectoryPoints.get(i).y + (int)(slope*dist*0.33)-7,null);
+				g.drawImage(l3, trajectoryPoints.get(i).x + (int)(dist*0.66),trajectoryPoints.get(i).y + (int)(slope*dist*0.66)-7,null);
+			}
 		}
 
 		repaint();
