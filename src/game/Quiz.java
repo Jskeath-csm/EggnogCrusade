@@ -24,7 +24,7 @@ import javax.swing.border.TitledBorder;
 
 
 public class Quiz extends JDialog {
-	public static final int NUM_OF_QUESTIONS = 10;
+	public static final int NUM_OF_QUESTIONS = 20;
 	private ArrayList<String> questions = new ArrayList<String>();
 	private ArrayList<String> answers = new ArrayList<String>();
 	private JTextField answer1;
