@@ -1,0 +1,13 @@
+What is the third angle of a triangle if the other two angles are both 45 degrees?
+What is the sum of the angles on a triangle?
+What is the sum of the angles on a rectangle?
+What is the sum of the angles on a square?
+If a triangle has an angle that is larger than 90 is it an acute triangle?
+If a triangle does not have an angle that is larger than 90 is it an acute triangle?
+If a triangle has an angle that is larger than 90 is it an obtuse triangle?
+If an angle is a "right" angle, how many degrees is it?
+An angle is 37 degrees, what type of angle is it?
+An angle is 104 degrees, what type of angle is it?
+An angle is 90 degrees, what type of angle is it?
+
+
