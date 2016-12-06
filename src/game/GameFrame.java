@@ -195,38 +195,7 @@ public class GameFrame extends JPanel{
 
 
 	public Eggnog getProjectile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void loadQuiz() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Map<String, String> getQuestions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void displayQuiz() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public QuizDialog getQuizJDialog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object getAmmoCount() {
-		// TODO Auto-generated method stub
-		return null;
+		return projectile;
 	}
 
 	public BufferedImage getBucketImage() {

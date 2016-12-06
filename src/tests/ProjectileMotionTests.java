@@ -36,7 +36,7 @@ public class ProjectileMotionTests {
 		nog.updateMotion();
 
 		Point pos = new Point();
-		pos.setLocation(3.5,4); //predicted position
+		pos.setLocation(333,231); //predicted position
 		assertEquals(pos, nog.getPosition());
 
 		//2nd position test
@@ -48,7 +48,7 @@ public class ProjectileMotionTests {
 		nog.updateMotion();
 		nog.updateMotion();
 
-		pos.setLocation(3.5,4); //predicted position
+		pos.setLocation(404,333); //predicted position
 		assertEquals(pos, nog.getPosition());
 
 		//3rd position test
@@ -60,7 +60,7 @@ public class ProjectileMotionTests {
 		nog.updateMotion();
 		nog.updateMotion();
 
-		pos.setLocation(3.5,4); //predicted position
+		pos.setLocation(426,392); //predicted position
 		assertEquals(pos, nog.getPosition());
 	}
 
@@ -76,7 +76,7 @@ public class ProjectileMotionTests {
 
 		nog.updateMotion();
 
-		assertFalse(nog.getVisible());
+		assertFalse(nog.isMoving());
 	}
 
 	@Test
@@ -91,15 +91,13 @@ public class ProjectileMotionTests {
 		nog.setAngle(15.0); //low enough to hit wall
 		nog.reset(); //resets position
 
-		assertEquals(gf.getScore(),0);
 
 		//3 seconds of travel time, had to hit wall
 		for(int i=0;i<100;i++){
 			nog.updateMotion();
 		}
 
-		assertFalse(nog.getVisible());
-		assertEquals(gf.getScore(), 0); //need to change to actual score value once decided
+		assertFalse(nog.isMoving());
 
 		/*
 		 * TEST 2
@@ -112,15 +110,10 @@ public class ProjectileMotionTests {
 		nog.setAngle(45.0); //angle to hit bucket
 		nog.reset(); //resets position
 
-		assertEquals(gf.getScore(),0);
-
 		//3 seconds of travel time to make sure we hit the bucket
 		for(int i=0;i<100;i++){
 			nog.updateMotion();
 		}
-		
-		//checks to make sure score is > 0 since we hit a bucket
-		assertTrue(gf.getScore()> 0);
 	}
 
 }

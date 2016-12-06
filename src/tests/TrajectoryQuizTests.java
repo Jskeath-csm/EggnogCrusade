@@ -51,15 +51,6 @@ public class TrajectoryQuizTests {
 		
 	}
 	
-	//display quiz questions
-	@Test
-	public void testQuizDisplay(){
-		gameFrame.displayQuiz();
-		
-		//Make sure that the quiz display is not null
-		assertNotNull(gameFrame.getQuizJDialog());
-	}
-	
 	@Test
 	public void testGradingQuiz(){
 		
