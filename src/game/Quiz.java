@@ -172,5 +172,16 @@ public class Quiz extends JDialog {
 		quiz.setVisible(true);
 	}
 	
+	//TESTING METHODS
+	public String getAnswer1(){
+		return answers.get(0);
+	}
+	public String getAnswer2(){
+		return answers.get(1);
+	}
+	public String getAnswer3(){
+		return answers.get(2);
+	}
+	
 }
 
