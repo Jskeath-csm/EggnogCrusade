@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -109,7 +111,7 @@ public class Quiz extends JDialog {
 	}
 
 	public void loadQuizQuestions() throws FileNotFoundException{
-		FileReader reader = new FileReader("src/Quizzes/QuizQuestions.txt");
+		InputStream reader = getClass().getResourceAsStream("/Quizzes/QuizQuestions.txt");
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
 			String question = in.nextLine();
@@ -118,7 +120,7 @@ public class Quiz extends JDialog {
 	}
 
 	public void loadQuizAnswers() throws FileNotFoundException{
-		FileReader reader = new FileReader("src/Quizzes/QuizAnswers.txt");
+		InputStream reader = getClass().getResourceAsStream("/Quizzes/QuizAnswers.txt");
 		Scanner in = new Scanner(reader);
 		while (in.hasNextLine()) {
 			String answer = in.nextLine();

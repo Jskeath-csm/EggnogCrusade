@@ -18,16 +18,7 @@ public class TestGameInit {
 	
 	@BeforeClass
 	public static void setup(){
-		ArrayList<String> filenames = new ArrayList<String>();
-		filenames.add("images/Backdrop.png");
-		filenames.add("images/Bucket.png");
-		filenames.add("images/Button.png");
-		filenames.add("images/Catapult.png");
-		filenames.add("images/CoolSanta.png");
-		filenames.add("images/Nog.png");
-		filenames.add("images/NormalSanta.png");
 		gf = GameFrame.getInstance();
-		gf.setConfigFiles("", filenames);
 	}
 	
 	@Test
