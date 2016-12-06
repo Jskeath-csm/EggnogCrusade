@@ -280,6 +280,8 @@ public class GameFrame extends JPanel{
 				projectile.setMoving(true);
 				projectile.setAngle(gf.getControlGUI().getAngle());
 				controlGUI.decreaseAmmoCount();
+			} else {
+				gf.getControlGUI().resetFired();
 			}
 
 			if(projectile.isMoving()){
