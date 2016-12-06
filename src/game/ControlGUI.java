@@ -22,7 +22,6 @@ import javax.swing.border.TitledBorder;
 
 public class ControlGUI extends JPanel{
 
-	private GameFrame gameFrame;
 	private JTextField angle;
 	private double theta = 45;
 	
@@ -32,7 +31,7 @@ public class ControlGUI extends JPanel{
 
 	public ControlGUI() {
 		
-		gameFrame = GameFrame.getInstance();
+		GameFrame gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
 		add(createAngleBox());
 		add(fireButtonPanel());
@@ -195,7 +194,7 @@ public class ControlGUI extends JPanel{
 	
 	public void reDrawAllRows() {
 		removeAll();
-		gameFrame = GameFrame.getInstance();
+		GameFrame gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
 		add(createAngleBox());
 		add(fireButtonPanel());

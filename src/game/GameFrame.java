@@ -112,7 +112,7 @@ public class GameFrame extends JPanel{
 		boundaryList = new ArrayList<Boundary>();
 		imageList = new ArrayList<Drawable>();
 		imageList.add(projectile);
-		Wall wall = new Wall(950,500,20,200);
+		Wall wall = new Wall(950,400,20,400);
 		boundaryList.add(wall);
 		imageList.add(wall);
 		Bucket bucket1 = new Bucket(1100,600,100,100);
