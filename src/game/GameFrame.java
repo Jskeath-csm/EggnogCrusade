@@ -35,8 +35,8 @@ public class GameFrame extends JPanel{
 
 
 	//Size of the gameBoard in Pixels
-	public static final int gameSizeX = 1920;
-	public static final int gameSizeY = 1080;
+	public static final int gameSizeX = 1080;
+	public static final int gameSizeY = 720;
 
 	//image variables
 	private String quizFileName;
@@ -54,7 +54,7 @@ public class GameFrame extends JPanel{
 	
 	private ImageIcon buttonImage;
 
-	//quiz and controll variables.
+	//quiz and control variables.
 	private QuizDialog quiz;
 	private ControlGUI controlGUI;
 
@@ -64,7 +64,7 @@ public class GameFrame extends JPanel{
 	private Eggnog projectile;
 
 	//projectile and trajectory variables variables (trajectory uses the same)
-	double projectileForce = 120;
+	double projectileForce = 95;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 
@@ -112,12 +112,12 @@ public class GameFrame extends JPanel{
 		boundaryList = new ArrayList<Boundary>();
 		imageList = new ArrayList<Drawable>();
 		imageList.add(projectile);
-		Wall wall = new Wall(950,400,20,400);
+		Wall wall = new Wall((int) (950/1920.0*gameSizeX),(int) (400/1080.0*gameSizeY),20,400);
 		boundaryList.add(wall);
 		imageList.add(wall);
-		Bucket bucket1 = new Bucket(1100,600,100,100);
-		Bucket bucket2 = new Bucket(1400,600,100,100);
-		Bucket bucket3 = new Bucket(1700,600,100,100);
+		Bucket bucket1 = new Bucket((int)(1100.0/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
+		Bucket bucket2 = new Bucket((int)(1400/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
+		Bucket bucket3 = new Bucket((int)(1700/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
 		boundaryList.add(bucket1);
 		boundaryList.add(bucket2);
 		boundaryList.add(bucket3);
@@ -321,9 +321,9 @@ public class GameFrame extends JPanel{
 
 		//TODO - draw the images (buckets, wall, background etc.)
 		//Draw only the static images
-		g.drawImage(getCoolSantaImage(), 150, 0, null);
-		g.drawImage(getBackdropImage(), 1000, 0, null);
-		g.drawImage(getCatapultImage(), 0, 400, null);
+		g.drawImage(getCoolSantaImage(), (int) (150.0/1920.0*gameSizeX), 0, null);
+		g.drawImage(getBackdropImage(), (int) (1000.0/1920.0*gameSizeX), 0, null);
+		g.drawImage(getCatapultImage(), 0, (int) (400.0/1080.0*gameSizeY), null);
 
 		//Draw each image
 		for(Drawable d: imageList) {
