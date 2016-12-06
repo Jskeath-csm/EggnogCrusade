@@ -107,7 +107,7 @@ public class Quiz extends JDialog {
 		mainPanel.setBorder(greenline);
 		add(mainPanel);
 		setSize(600, 475);
-		
+		setModal(true);
 	}
 
 	public void loadQuizQuestions() throws FileNotFoundException{

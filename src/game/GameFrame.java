@@ -36,7 +36,7 @@ public class GameFrame extends JPanel{
 
 	//Size of the gameBoard in Pixels
 	public static final int gameSizeX = 1400;
-	public static final int gameSizeY = 720;
+	public static final int gameSizeY = 900;
 
 	//image variables
 	private String quizFileName;
