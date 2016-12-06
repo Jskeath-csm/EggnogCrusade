@@ -267,7 +267,7 @@ public class GameFrame extends JPanel{
 					}
 
 					if(projectile.getPosition().x > gameSizeX|| projectile.getPosition().y > gameSizeY){
-						System.out.println("HIT");
+						//System.out.println("HIT");
 						projectile.setMoving(false);
 						projectile.reset();
 					}
@@ -364,6 +364,7 @@ public class GameFrame extends JPanel{
 		frame.add(gf.getControlGUI(), BorderLayout.SOUTH);
 		frame.add(gf, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Eggnogg Crusade");
 		frame.setVisible(true);
 	}
 }
