@@ -29,16 +29,8 @@ public class ControlGUI extends JPanel{
 	private boolean firePressed = false;
 	private int ammoCount = 5;
 	public static final int MAX_AMMO_COUNT = 5;
-	private BufferedImage nogPic;
 
 	public ControlGUI() {
-		
-		try {
-			URL url = getClass().getResource("/images/Nog2.png");
-			nogPic = ImageIO.read(url);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
@@ -143,6 +135,17 @@ public class ControlGUI extends JPanel{
 	
 	private JPanel createAmmoBox() {
 		JPanel nogPanel = new JPanel();
+		try {
+			URL url = getClass().getResource("/images/Nog2.png");
+			BufferedImage nogPic = ImageIO.read(url);
+			for(int i = 1; i <= ammoCount; i++){
+				JLabel picLabel = new JLabel(new ImageIcon(nogPic));
+				nogPanel.add(picLabel);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		nogPanel.setBorder(new TitledBorder (new EtchedBorder(), "Nogs Left"));
 		return nogPanel;
 	}
@@ -210,13 +213,4 @@ public class ControlGUI extends JPanel{
 		repaint();
 	}
 	
-	@Override
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		int x = getWidth()/3;
-		for(int i = 1; i < ammoCount; i++){
-			g.drawImage(nogPic, x, 100, null);
-			x += nogPic.getWidth();
-		}
-	}
 }
