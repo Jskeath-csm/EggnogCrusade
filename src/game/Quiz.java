@@ -26,14 +26,19 @@ import javax.swing.border.TitledBorder;
 public class Quiz extends JDialog {
 	private ArrayList<String> questions = new ArrayList<String>();
 	private ArrayList<String> answers = new ArrayList<String>();
-	private JTextField answer;
-	private String playerAnswer;
-	private int questionNumber;
+	private JTextField answer1;
+	private JTextField answer2;
+	private JTextField answer3;
+	private String playerAnswer1;
+	private String playerAnswer2;
+	private String playerAnswer3;
+	private ArrayList<Integer> questionNumber;
 	private Border redline = BorderFactory.createLineBorder(Color.red, 3);
 	private Border greenline = BorderFactory.createLineBorder(Color.green, 3);
 
 	public Quiz() {
 		super();
+		questionNumber = new ArrayList<Integer>();
 		try {
 			loadQuizQuestions();
 		} catch (FileNotFoundException e) {
@@ -46,20 +51,43 @@ public class Quiz extends JDialog {
 		}
 
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new GridLayout(3,1));
+		JPanel firstQuestion = new JPanel();
+		JPanel secondQuestion = new JPanel();
+		JPanel thirdQuestion = new JPanel();
+		firstQuestion.setLayout(new GridLayout(1,2));
+		secondQuestion.setLayout(new GridLayout(1,2));
+		thirdQuestion.setLayout(new GridLayout(1,2));
+		mainPanel.setLayout(new GridLayout(4,1));
 		
-		mainPanel.add(makeQuestion());
-		answer = new JTextField(10);
-		answer.setBorder(new TitledBorder(new EtchedBorder(), "Answer"));
-		mainPanel.add(answer);
+		firstQuestion.add(makeQuestion());
+		answer1 = new JTextField(10);
+		answer1.setBorder(new TitledBorder(new EtchedBorder(), "Answer"));
+		firstQuestion.add(answer1);
+		
+		secondQuestion.add(makeQuestion());
+		answer2 = new JTextField(10);
+		answer2.setBorder(new TitledBorder(new EtchedBorder(), "Answer"));
+		secondQuestion.add(answer2);
+		
+		thirdQuestion.add(makeQuestion());
+		answer3 = new JTextField(10);
+		answer3.setBorder(new TitledBorder(new EtchedBorder(), "Answer"));
+		thirdQuestion.add(answer3);
 		
 		JButton button = new JButton("Submit");
+		mainPanel.add(firstQuestion);
+		mainPanel.add(secondQuestion);
+		mainPanel.add(thirdQuestion);
 		mainPanel.add(button);
 		class SubmitListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				playerAnswer = answer.getText();
+				playerAnswer1 = answer1.getText();
+				playerAnswer2 = answer2.getText();
+				playerAnswer3 = answer3.getText();
 				if(checkAnswer()) {
-					//Increase the ammo count by 1
+					//Increase the ammo count by 3
+					GameFrame.getInstance().getControlGUI().increaseAmmoCount();
+					GameFrame.getInstance().getControlGUI().increaseAmmoCount();
 					GameFrame.getInstance().getControlGUI().increaseAmmoCount();
 					setVisible(false);
 				}
@@ -98,8 +126,9 @@ public class Quiz extends JDialog {
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Question"));
 		
 		Random random = new Random();
-		questionNumber = random.nextInt(10);
-		JTextArea jlabel = new JTextArea(questions.get(questionNumber));
+		int i = random.nextInt(10);
+		questionNumber.add(i);
+		JTextArea jlabel = new JTextArea(questions.get(i));
 		jlabel.setFont(new Font("Verdana",1,10));
 		jlabel.setWrapStyleWord(true);
 		jlabel.setLineWrap(true);
@@ -110,7 +139,7 @@ public class Quiz extends JDialog {
 	}
 	
 	public boolean checkAnswer() {
-		if (playerAnswer.equals(answers.get(questionNumber))) {
+		if (playerAnswer1.equals(answers.get(questionNumber.get(0))) && playerAnswer2.equals(answers.get(questionNumber.get(1))) && playerAnswer3.equals(answers.get(questionNumber.get(2)))) {
 			return true;
 		}
 		else {
