@@ -139,7 +139,7 @@ public class Quiz extends JDialog {
 	}
 	
 	public boolean checkAnswer() {
-		if (playerAnswer1.equals(answers.get(questionNumber.get(0))) && playerAnswer2.equals(answers.get(questionNumber.get(1))) && playerAnswer3.equals(answers.get(questionNumber.get(2)))) {
+		if (playerAnswer1.equalsIgnoreCase(answers.get(questionNumber.get(0))) && playerAnswer2.equalsIgnoreCase(answers.get(questionNumber.get(1))) && playerAnswer3.equalsIgnoreCase(answers.get(questionNumber.get(2)))) {
 			return true;
 		}
 		else {
