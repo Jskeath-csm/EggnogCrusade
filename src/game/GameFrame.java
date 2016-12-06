@@ -35,7 +35,7 @@ public class GameFrame extends JPanel{
 
 
 	//Size of the gameBoard in Pixels
-	public static final int gameSizeX = 1080;
+	public static final int gameSizeX = 1400;
 	public static final int gameSizeY = 720;
 
 	//image variables
@@ -64,7 +64,7 @@ public class GameFrame extends JPanel{
 	private Eggnog projectile;
 
 	//projectile and trajectory variables variables (trajectory uses the same)
-	double projectileForce = 95;
+	double projectileForce = 112;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 
