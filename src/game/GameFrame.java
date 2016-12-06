@@ -279,6 +279,8 @@ public class GameFrame extends JPanel{
 				projectile.setVisible();
 				projectile.setMoving(true);
 				projectile.setAngle(gf.getControlGUI().getAngle());
+				controlGUI.decreaseAmmoCount();
+				controlGUI.reDrawAllRows();
 			}
 
 			if(projectile.isMoving()){

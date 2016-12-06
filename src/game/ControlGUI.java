@@ -29,16 +29,8 @@ public class ControlGUI extends JPanel{
 	private boolean firePressed = false;
 	private int ammoCount = 5;
 	public static final int MAX_AMMO_COUNT = 5;
-	private BufferedImage nogPic;
 
 	public ControlGUI() {
-		
-		try {
-			URL url = getClass().getResource("/images/Nog2.png");
-			nogPic = ImageIO.read(url);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
@@ -133,7 +125,6 @@ public class ControlGUI extends JPanel{
 		public void mousePressed(MouseEvent arg0) {
 			System.out.println("Printed");
 			firePressed = true;		
-			ammoCount--;
 			repaint();
 		}
 
@@ -144,6 +135,17 @@ public class ControlGUI extends JPanel{
 	
 	private JPanel createAmmoBox() {
 		JPanel nogPanel = new JPanel();
+		try {
+			URL url = getClass().getResource("/images/Nog2.png");
+			BufferedImage nogPic = ImageIO.read(url);
+			for(int i = 1; i <= ammoCount; i++){
+				JLabel picLabel = new JLabel(new ImageIcon(nogPic));
+				nogPanel.add(picLabel);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		nogPanel.setBorder(new TitledBorder (new EtchedBorder(), "Nogs Left"));
 		return nogPanel;
 	}
@@ -169,6 +171,14 @@ public class ControlGUI extends JPanel{
 		repaint();
 	}
 	
+	public void decreaseAmmoCount(){
+		if(ammoCount > 0) {
+			ammoCount--;
+		}
+		System.out.println(ammoCount);
+		repaint();
+	}
+	
 	public boolean isFired(){
 		return firePressed;
 	}
@@ -185,13 +195,22 @@ public class ControlGUI extends JPanel{
 		return a;
 	}
 	
-	@Override
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		int x = getWidth()/3;
-		for(int i = 1; i < ammoCount; i++){
-			g.drawImage(nogPic, x, 100, null);
-			x += nogPic.getWidth();
-		}
+	public void reDrawAllRows() {
+		removeAll();
+		gameFrame = GameFrame.getInstance();
+		setLayout(new GridLayout(1,4));
+		add(createAngleBox());
+		add(fireButtonPanel());
+		add(createAmmoBox());
+		
+		Border redline = BorderFactory.createLineBorder(Color.red, 3);
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border matteBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, Color.green);
+		Border compound = BorderFactory.createCompoundBorder(raisedbevel, redline);
+		compound = BorderFactory.createCompoundBorder(matteBorder, compound);
+		setBorder(compound);
+		revalidate();
+		repaint();
 	}
+	
 }
