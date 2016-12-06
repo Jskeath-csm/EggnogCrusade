@@ -3,8 +3,10 @@ package game;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.imageio.ImageIO;
@@ -285,6 +290,7 @@ public class GameFrame extends JPanel{
 						System.out.println("HIT");
 						projectile.setMoving(false);
 						projectile.reset();
+						if (b instanceof Bucket) b.isVisible = false;
 					}
 
 					if(projectile.getPosition().x > gameSizeX|| projectile.getPosition().y > gameSizeY){
@@ -297,6 +303,41 @@ public class GameFrame extends JPanel{
 			}
 
 			gf.repaint();
+			//check to see if the game is over
+			boolean gameOver = true;
+			for(Boundary b: boundaryList) {
+				if(b instanceof Bucket && b.isVisible) gameOver = false;
+			}
+			if(gameOver) {
+				JDialog gameOverScreen = new JDialog(null, Dialog.ModalityType.APPLICATION_MODAL);
+				gameOverScreen.setBounds(300, 300, 300, 300);
+				gameOverScreen.setLayout(new GridLayout(3,1));
+				JButton btn = new JButton("Reset");
+				JButton btn2 = new JButton("Quit");
+				btn.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						for(Boundary b: GameFrame.getInstance().boundaryList) b.isVisible = true;
+					}
+				});
+				
+				btn2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						System.exit(0);
+					}
+					
+				});
+				gameOverScreen.setTitle("You won!");
+				gameOverScreen.add(new JLabel("Congratulations! You won!"));
+				gameOverScreen.add(btn);
+				gameOverScreen.add(btn2);
+				gameOverScreen.setVisible(true);
+			}
 		}
 
 	};

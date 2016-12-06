@@ -24,6 +24,7 @@ public class Bucket extends Boundary implements Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(GameFrame.getInstance().getBucketImage(), pixelX, pixelY, null);
+		if(isVisible) g.drawImage(GameFrame.getInstance().getBucketImage(), pixelX, pixelY, null);
+
 	}
 }

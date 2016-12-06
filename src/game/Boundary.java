@@ -7,6 +7,8 @@ public abstract class Boundary {
 	protected int sizeX;
 	protected int sizeY;
 
+	protected boolean isVisible = true;
+	
 	public boolean detectCollision(Eggnog proj) {
 		int pX = proj.getPosition().x;
 		int pY = proj.getPosition().y;

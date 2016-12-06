@@ -27,6 +27,7 @@ public class ControlGUI extends JPanel{
 	
 	private boolean firePressed = false;
 	private int ammoCount = 5;
+	public static final int MAX_AMMO_COUNT = 5;
 
 	public ControlGUI() {
 		gameFrame = GameFrame.getInstance();
@@ -108,6 +109,7 @@ public class ControlGUI extends JPanel{
 			System.out.println("Printed");
 			firePressed = true;		
 			ammoCount--;
+			repaint();
 		}
 
 		@Override
@@ -147,7 +149,7 @@ public class ControlGUI extends JPanel{
 	}
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Temp title");
@@ -157,10 +159,14 @@ public class ControlGUI extends JPanel{
 		frame.add(gui);
 		frame.setVisible(true);
 
-	}
+	}*/
 	
 	public void increaseAmmoCount(){
-		ammoCount++;
+		if(ammoCount < MAX_AMMO_COUNT) {
+			ammoCount++;
+		}
+		System.out.println(ammoCount);
+		repaint();
 	}
 	
 	public boolean isFired(){

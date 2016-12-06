@@ -9,5 +9,3 @@ If an angle is a "right" angle, how many degrees is it?
 An angle is 37 degrees, what type of angle is it?
 An angle is 104 degrees, what type of angle is it?
 An angle is 90 degrees, what type of angle is it?
-
-
