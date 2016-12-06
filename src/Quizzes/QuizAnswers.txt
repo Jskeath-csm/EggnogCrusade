@@ -9,3 +9,13 @@ yes
 acute
 obtuse
 right
+right
+acute
+obtuse
+acute
+obtuse
+obtuse
+acute
+yes
+8
+rudolph

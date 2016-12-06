@@ -24,6 +24,7 @@ import javax.swing.border.TitledBorder;
 
 
 public class Quiz extends JDialog {
+	public static final int NUM_OF_QUESTIONS = 20;
 	private ArrayList<String> questions = new ArrayList<String>();
 	private ArrayList<String> answers = new ArrayList<String>();
 	private JTextField answer1;
@@ -39,6 +40,7 @@ public class Quiz extends JDialog {
 	public Quiz() {
 		super();
 		questionNumber = new ArrayList<Integer>();
+		//Loads in the questions and answers from text files
 		try {
 			loadQuizQuestions();
 		} catch (FileNotFoundException e) {
@@ -59,6 +61,7 @@ public class Quiz extends JDialog {
 		thirdQuestion.setLayout(new GridLayout(1,2));
 		mainPanel.setLayout(new GridLayout(4,1));
 		
+		//Creates three panels, each with a random question from the pool of questions
 		firstQuestion.add(makeQuestion());
 		answer1 = new JTextField(10);
 		answer1.setBorder(new TitledBorder(new EtchedBorder(), "Answer"));
@@ -79,8 +82,10 @@ public class Quiz extends JDialog {
 		mainPanel.add(secondQuestion);
 		mainPanel.add(thirdQuestion);
 		mainPanel.add(button);
+		// Action listener to check all the answers when the submit button is pressed
 		class SubmitListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
+				// Grabs the three player answers and checks to see if the are correct
 				playerAnswer1 = answer1.getText();
 				playerAnswer2 = answer2.getText();
 				playerAnswer3 = answer3.getText();
@@ -124,10 +129,11 @@ public class Quiz extends JDialog {
 	public JPanel makeQuestion() {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), "Question"));
-		
+		//Creates random int and puts it into an arraylist to keep track of the index of the question that is asked 
 		Random random = new Random();
-		int i = random.nextInt(10);
+		int i = random.nextInt(NUM_OF_QUESTIONS);
 		questionNumber.add(i);
+		//Gets string from arrayList of questions using random int
 		JTextArea jlabel = new JTextArea(questions.get(i));
 		jlabel.setFont(new Font("Verdana",1,10));
 		jlabel.setWrapStyleWord(true);
@@ -139,7 +145,8 @@ public class Quiz extends JDialog {
 	}
 	
 	public boolean checkAnswer() {
-		if (playerAnswer1.equals(answers.get(questionNumber.get(0))) && playerAnswer2.equals(answers.get(questionNumber.get(1))) && playerAnswer3.equals(answers.get(questionNumber.get(2)))) {
+		//uses the arraylist of indices to check the player answer against the actual answer from the arraylist of answers
+		if (playerAnswer1.equalsIgnoreCase(answers.get(questionNumber.get(0))) && playerAnswer2.equalsIgnoreCase(answers.get(questionNumber.get(1))) && playerAnswer3.equalsIgnoreCase(answers.get(questionNumber.get(2)))) {
 			return true;
 		}
 		else {
