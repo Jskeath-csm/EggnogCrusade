@@ -34,6 +34,7 @@ public class ControlGUI extends JPanel{
 		add(createAngleBox());
 		add(fireButtonPanel());
 		add(createAmmoBox());
+		
 		Border redline = BorderFactory.createLineBorder(Color.red, 3);
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		Border matteBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, Color.green);
@@ -83,6 +84,13 @@ public class ControlGUI extends JPanel{
 		return picLabel;
 	}
 
+	private class QuizListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Quiz q = new Quiz();
+			q.setVisible(true);
+		}
+	}
+	
 	private class FireListener implements MouseListener{
 
 
@@ -106,12 +114,19 @@ public class ControlGUI extends JPanel{
 		public void mouseReleased(MouseEvent arg0) {}
 		
 	}
-
+	
 	private JPanel createAmmoBox() {
 		JPanel nogPanel = new JPanel();
+		JPanel leftPanel = new JPanel();
 		JLabel nameLabel = new JLabel("Ammo:");
-		nogPanel.add(nameLabel);
+		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+		leftPanel.add(nameLabel);
+		JButton quizButton = new JButton();
+		quizButton.setText("Get more ammo");
+		quizButton.addActionListener(new QuizListener());
+		leftPanel.add(quizButton);
 
+		nogPanel.add(leftPanel);
 		//BufferedImage nogPic = gameFrame.getImage();
 		BufferedImage nogPic;
 		try {
@@ -142,6 +157,10 @@ public class ControlGUI extends JPanel{
 		frame.add(gui);
 		frame.setVisible(true);
 
+	}
+	
+	public void increaseAmmoCount(){
+		ammoCount++;
 	}
 	
 	public boolean isFired(){

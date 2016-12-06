@@ -59,7 +59,8 @@ public class Quiz extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				playerAnswer = answer.getText();
 				if(checkAnswer()) {
-					//add ammo
+					//Increase the ammo count by 1
+					GameFrame.getInstance().getControlGUI().increaseAmmoCount();
 					setVisible(false);
 				}
 				else {
