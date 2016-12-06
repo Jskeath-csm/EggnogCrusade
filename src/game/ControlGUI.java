@@ -167,16 +167,14 @@ public class ControlGUI extends JPanel{
 		if(ammoCount < MAX_AMMO_COUNT) {
 			ammoCount++;
 		}
-		System.out.println(ammoCount);
-		repaint();
+		reDrawAllRows();
 	}
 	
 	public void decreaseAmmoCount(){
 		if(ammoCount > 0) {
 			ammoCount--;
 		}
-		System.out.println(ammoCount);
-		repaint();
+		reDrawAllRows();
 	}
 	
 	public boolean isFired(){
