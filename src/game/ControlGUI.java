@@ -108,7 +108,6 @@ public class ControlGUI extends JPanel{
 		public void mousePressed(MouseEvent arg0) {
 			System.out.println("Printed");
 			firePressed = true;		
-			ammoCount--;
 			repaint();
 		}
 
@@ -169,6 +168,14 @@ public class ControlGUI extends JPanel{
 		repaint();
 	}
 	
+	public void decreaseAmmoCount(){
+		if(ammoCount > 0) {
+			ammoCount--;
+		}
+		System.out.println(ammoCount);
+		repaint();
+	}
+	
 	public boolean isFired(){
 		return firePressed;
 	}
@@ -183,5 +190,23 @@ public class ControlGUI extends JPanel{
 		}
 		catch(NumberFormatException e){	}
 		return a;
+	}
+	
+	public void reDrawAllRows() {
+		removeAll();
+		gameFrame = GameFrame.getInstance();
+		setLayout(new GridLayout(1,4));
+		add(createAngleBox());
+		add(fireButtonPanel());
+		add(createAmmoBox());
+		
+		Border redline = BorderFactory.createLineBorder(Color.red, 3);
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border matteBorder = BorderFactory.createMatteBorder(3, 3, 3, 3, Color.green);
+		Border compound = BorderFactory.createCompoundBorder(raisedbevel, redline);
+		compound = BorderFactory.createCompoundBorder(matteBorder, compound);
+		setBorder(compound);
+		revalidate();
+		repaint();
 	}
 }
