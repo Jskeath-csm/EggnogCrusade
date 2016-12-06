@@ -1,0 +1,11 @@
+90
+180
+360
+360
+no
+yes
+yes
+90
+acute
+obtuse
+right
