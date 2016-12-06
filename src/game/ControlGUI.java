@@ -194,7 +194,7 @@ public class ControlGUI extends JPanel{
 	
 	public void reDrawAllRows() {
 		removeAll();
-		gameFrame = GameFrame.getInstance();
+		GameFrame gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
 		add(createAngleBox());
 		add(fireButtonPanel());
