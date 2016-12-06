@@ -2,53 +2,41 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import game.GameFrame;
+import game.Quiz;
 import game.QuizDialog;
 
 public class TrajectoryQuizTests {
 
-	private GameFrame gameFrame;
+	private static GameFrame gameFrame;
+	private static Quiz testQuiz;
 	
-	@Before
-	public void init(){
+	@BeforeClass
+	public static void setup(){
 		gameFrame = GameFrame.getInstance();
-		gameFrame.loadQuiz();
-		ArrayList<String> imageFileNames = new ArrayList<String>();
-		gameFrame.setConfigFiles("quizTest.txt", imageFileNames);
+		testQuiz = new Quiz();
 	}
 	
 	//Load in quiz questions and answers
 	@Test
-	public void testQuizReadIn() {
-		
-		Map<String, String> questions = gameFrame.getQuestions();
-		String firstQuestion = "Sample Question 1?";
-		String secondQuestion = "Sample Question 2?";
-		String thridQuestion = "Sample Question 3?";
-		
-		//Test to see that all of the questions were loaded in from the config
-		assertEquals(0, questions.size());
-		
-		//Test to see that answers are mapped to questions
-		assert(questions.containsKey(firstQuestion));
-		assertEquals("Answer 1", questions.get(firstQuestion));
-		
-		//Test to see that answers are mapped to questions
-		assert(questions.containsKey(secondQuestion));
-		assertEquals("Answer 2", questions.get(secondQuestion));
-		
-		//Test to see that answers are mapped to questions
-		assert(questions.containsKey(thridQuestion));
-		assertEquals("Answer 3", questions.get(thridQuestion));
-		
-		
+	public void testQuizLoading() {
+		try{
+			testQuiz.loadQuizQuestions();
+			testQuiz.loadQuizAnswers();
+			assertTrue(true);
+		} catch(FileNotFoundException e) {
+			assertTrue(false);
+		}
 	}
 	
 	@Test
