@@ -36,7 +36,7 @@ public class GameFrame extends JPanel{
 
 	//Size of the gameBoard in Pixels
 	public static final int gameSizeX = 1400;
-	public static final int gameSizeY = 720;
+	public static final int gameSizeY = 850;
 
 	//image variables
 	private String quizFileName;
@@ -64,7 +64,7 @@ public class GameFrame extends JPanel{
 	private Eggnog projectile;
 
 	//projectile and trajectory variables variables (trajectory uses the same)
-	double projectileForce = 112;
+	double projectileForce = 100;
 	double gravityForce = -9.8;
 	double projectileAngle = 45;
 
@@ -103,7 +103,7 @@ public class GameFrame extends JPanel{
 		gameTimer.start();
 
 		//Setup starting locations and projectile parameters
-		projectile = new Eggnog(0+78,320+121, true);
+		projectile = new Eggnog(0+72,230+121, true);
 		origin.setLocation(projectile.getPosition().x, projectile.getPosition().y);
 		projectile.setOrigin(origin);
 		projectile.setParameters(projectileForce, gravityForce);
@@ -115,9 +115,9 @@ public class GameFrame extends JPanel{
 		Wall wall = new Wall((int) (950/1920.0*gameSizeX),(int) (400/1080.0*gameSizeY),20,400);
 		boundaryList.add(wall);
 		imageList.add(wall);
-		Bucket bucket1 = new Bucket((int)(1100.0/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
-		Bucket bucket2 = new Bucket((int)(1400/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
-		Bucket bucket3 = new Bucket((int)(1700/1920.0*gameSizeX),(int)(600/1080.0*gameSizeY),100,100);
+		Bucket bucket1 = new Bucket((int)(1100.0/1920.0*gameSizeX),(int)(650/1080.0*gameSizeY),100,100);
+		Bucket bucket2 = new Bucket((int)(1400/1920.0*gameSizeX),(int)(650/1080.0*gameSizeY),100,100);
+		Bucket bucket3 = new Bucket((int)(1700/1920.0*gameSizeX),(int)(650/1080.0*gameSizeY),100,100);
 		boundaryList.add(bucket1);
 		boundaryList.add(bucket2);
 		boundaryList.add(bucket3);
@@ -259,7 +259,7 @@ public class GameFrame extends JPanel{
 
 				for(Boundary b: boundaryList){
 					if(b.detectCollision(projectile)){
-						System.out.println("HIT");
+						//System.out.println("HIT");
 						projectile.setMoving(false);
 						projectile.reset();
 						if (b instanceof Bucket) b.isVisible = false;

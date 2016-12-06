@@ -122,7 +122,7 @@ public class ControlGUI extends JPanel{
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			System.out.println("Printed");
+			//System.out.println("Printed");
 			firePressed = true;		
 			repaint();
 		}
