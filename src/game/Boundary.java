@@ -13,7 +13,7 @@ public abstract class Boundary {
 		int pX = proj.getPosition().x;
 		int pY = proj.getPosition().y;
 		
-		if((pX > pixelX && pX < pixelX + sizeX) && (pY > pixelY && pY < pixelY + sizeY))
+		if((pX > pixelX && pX < pixelX + sizeX) && (pY > pixelY && pY < pixelY + sizeY) && isVisible)
 			return true;
 		else
 			return false;

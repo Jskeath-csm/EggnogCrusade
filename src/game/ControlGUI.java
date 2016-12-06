@@ -3,6 +3,7 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,8 +29,17 @@ public class ControlGUI extends JPanel{
 	private boolean firePressed = false;
 	private int ammoCount = 5;
 	public static final int MAX_AMMO_COUNT = 5;
+	private BufferedImage nogPic;
 
 	public ControlGUI() {
+		
+		try {
+			URL url = getClass().getResource("/images/Nog2.png");
+			nogPic = ImageIO.read(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		gameFrame = GameFrame.getInstance();
 		setLayout(new GridLayout(1,4));
 		add(createAngleBox());
@@ -73,7 +83,8 @@ public class ControlGUI extends JPanel{
 		return angleDisplayPanel;
 	}
 
-	private JLabel fireButtonPanel(){
+	private JPanel fireButtonPanel(){
+		JPanel panel = new JPanel();
 		URL url = getClass().getResource("/images/Button.png");
 		JLabel picLabel = new JLabel();
 		try {
@@ -82,7 +93,21 @@ public class ControlGUI extends JPanel{
 			e.printStackTrace();
 		}
 		picLabel.addMouseListener(new FireListener());
-		return picLabel;
+		panel.add(picLabel);
+
+
+		JPanel ammoPanel = new JPanel();
+		JLabel nameLabel = new JLabel("Take a Quiz");
+		ammoPanel.setLayout(new BoxLayout(ammoPanel, BoxLayout.Y_AXIS));
+		ammoPanel.add(nameLabel);
+
+		JButton quizButton = new JButton();
+		quizButton.setText("Get more ammo");
+		quizButton.addActionListener(new QuizListener());
+		ammoPanel.add(quizButton);
+		panel.add(ammoPanel);
+
+		return panel;
 	}
 
 	private class QuizListener implements ActionListener {
@@ -118,31 +143,6 @@ public class ControlGUI extends JPanel{
 	
 	private JPanel createAmmoBox() {
 		JPanel nogPanel = new JPanel();
-		JPanel leftPanel = new JPanel();
-		JLabel nameLabel = new JLabel("Ammo:");
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-		leftPanel.add(nameLabel);
-		JButton quizButton = new JButton();
-		quizButton.setText("Get more ammo");
-		quizButton.addActionListener(new QuizListener());
-		leftPanel.add(quizButton);
-
-		nogPanel.add(leftPanel);
-		//BufferedImage nogPic = gameFrame.getImage();
-		BufferedImage nogPic;
-		try {
-			URL url = getClass().getResource("/images/Nog2.png");
-			nogPic = ImageIO.read(url);
-
-			for (int i = 1; i <= ammoCount; i++) {
-				JLabel picLabel = new JLabel(new ImageIcon(nogPic));
-				nogPanel.add(picLabel);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		nogPanel.setBorder(new TitledBorder (new EtchedBorder(), "Nogs Left"));
 		return nogPanel;
 	}
@@ -208,5 +208,15 @@ public class ControlGUI extends JPanel{
 		setBorder(compound);
 		revalidate();
 		repaint();
+	}
+	
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		int x = getWidth()/3;
+		for(int i = 1; i < ammoCount; i++){
+			g.drawImage(nogPic, x, 100, null);
+			x += nogPic.getWidth();
+		}
 	}
 }
