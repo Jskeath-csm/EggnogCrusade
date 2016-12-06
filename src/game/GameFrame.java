@@ -273,7 +273,7 @@ public class GameFrame extends JPanel{
 
 			//TIMER ACTIONS HERE
 			//System.out.println("Timer triggered");
-			if(gf.getControlGUI().isFired() && !projectile.isMoving()){
+			if(gf.getControlGUI().isFired() && !projectile.isMoving() && gf.getControlGUI().getAmmoCount() > 0){
 				gf.getControlGUI().resetFired();
 				projectile.reset();
 				projectile.setVisible();

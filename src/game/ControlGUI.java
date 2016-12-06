@@ -211,4 +211,8 @@ public class ControlGUI extends JPanel{
 		repaint();
 	}
 	
+	public int getAmmoCount(){
+		return ammoCount;
+	}
+	
 }
