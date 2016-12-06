@@ -26,6 +26,7 @@ public class ControlGUI extends JPanel{
 	private double theta = 45;
 	
 	private boolean firePressed = false;
+	private int ammoCount = 5;
 
 	public ControlGUI() {
 		gameFrame = GameFrame.getInstance();
@@ -97,7 +98,8 @@ public class ControlGUI extends JPanel{
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			System.out.println("Printed");
-			firePressed = true;			
+			firePressed = true;		
+			ammoCount--;
 		}
 
 		@Override
@@ -116,9 +118,7 @@ public class ControlGUI extends JPanel{
 			URL url = getClass().getResource("/images/Nog2.png");
 			nogPic = ImageIO.read(url);
 
-			//Get ammo count and draw all the nogs
-			//gameFrame.getAmmoCount();
-			for (int i = 1; i <= 5; i++) {
+			for (int i = 1; i <= ammoCount; i++) {
 				JLabel picLabel = new JLabel(new ImageIcon(nogPic));
 				nogPanel.add(picLabel);
 			}
